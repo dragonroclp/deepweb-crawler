@@ -45,6 +45,7 @@ public class Info implements Serializable {
         this.payload.put(field, content);
         return this;
     }
+
     public Info fixUrl(URL url) {
         if (this.url.startsWith(".") || this.url.startsWith("/")) {
             try {

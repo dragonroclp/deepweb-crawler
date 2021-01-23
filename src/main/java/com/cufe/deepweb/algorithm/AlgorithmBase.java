@@ -9,11 +9,13 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+//path  文件目录
+//build类构造
 /**
  * abstract class for crawling algorithm
  * query-generate algorithm，this class only focus on query generation logic
  */
+
 public abstract class AlgorithmBase {
     private final Logger logger = LoggerFactory.getLogger(AlgorithmBase.class);
     private List<String> qList; //the list which store all seleted queries
@@ -23,8 +25,9 @@ public abstract class AlgorithmBase {
     /**
      * the name of data saving file for production mode
      */
-    private static final String DATA_FILE = "qList.dat";
 
+    private static final String DATA_FILE = "qList.dat";
+//初始化文件，初始化query
     public AlgorithmBase(Builder builder) {
         this.productPath = builder.productPath;
         qList = new ArrayList<>();
@@ -87,12 +90,14 @@ public abstract class AlgorithmBase {
     /*
     the implementing class must implement this method to generate next query
     */
+    //后面类实现
     protected abstract String generateQuery();
 
 
     /**
      * do some initial operations for production mode
      */
+    //初始化一些文件
     private void productInit() {
         if (this.productPath != null) {
             File f = this.productPath.resolve(DATA_FILE).toFile();
@@ -116,6 +121,7 @@ public abstract class AlgorithmBase {
     /**
      * the implementation class can override this method for doing some close operations
      */
+    //将所有的query存入文件
     public void close(){
         if(this.productPath != null) {
             System.out.println("start to store qList information");

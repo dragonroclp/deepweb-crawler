@@ -8,7 +8,7 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.Future;
-
+// 存取文件的工具，删除文件的方法， 判断任务是否完成
 public final class Utils {
     private Utils() { }
     private static final Logger logger = LoggerFactory.getLogger(Utils.class);
@@ -38,6 +38,7 @@ public final class Utils {
             writer.write(content);
         }
     }
+
     public static void save2File(InputStream stream, String filePath) throws IOException {
 
         try (BufferedOutputStream bo = new BufferedOutputStream(new FileOutputStream(filePath))) {

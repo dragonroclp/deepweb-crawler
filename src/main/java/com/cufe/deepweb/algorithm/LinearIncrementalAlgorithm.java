@@ -14,6 +14,9 @@ import java.util.*;
  * this class is responsible for providing concrete data and strategy for whether start a new turn set covering
  * if want to extend this class, can just override the isUpdate method
  */
+//继承SetCoverAlgorithm实现线性搜索算法，负责提供具体数据和判断是否开始新一轮
+    //继承此类只需实现isUpdate
+    //isupdate 只运行一次，更新索引，确保更新
 public class LinearIncrementalAlgorithm extends SetCoverAlgorithm {
     private final Logger logger = LoggerFactory.getLogger(LinearIncrementalAlgorithm.class);
     /**
@@ -40,6 +43,7 @@ public class LinearIncrementalAlgorithm extends SetCoverAlgorithm {
     /**
      * the name of data saving file for production mode
      */
+
     private static final String DATA_FILE = "qList.dat";
 
     private Queue<Double> stepQueue;
@@ -105,6 +109,7 @@ public class LinearIncrementalAlgorithm extends SetCoverAlgorithm {
     /*
     构造器
      */
+    //重新构造builder
     public static class Builder extends SetCoverAlgorithm.Builder {
         private IndexClient indexClient;
         private Deduplicator deduplicator;

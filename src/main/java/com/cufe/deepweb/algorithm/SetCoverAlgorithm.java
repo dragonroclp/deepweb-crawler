@@ -13,6 +13,8 @@ import java.util.concurrent.TimeUnit;
  * set-covering algorithm: this class only focus on the implementation of set-covering algorithm，
  * the concrete data and whether to start a new turn of set-covering provided by the following implementation class
  */
+//当前类只关注，是否开启新一轮由继承类实现
+    //实现类Builder 继承来自AlgorithmBase的Bulider,通过此类中的Builder实现传参，实现SetCoverAlgorithm构造函数的传参
 public abstract class SetCoverAlgorithm extends AlgorithmBase {
     private final Logger logger = LoggerFactory.getLogger(SetCoverAlgorithm.class);
     /**
@@ -81,6 +83,8 @@ public abstract class SetCoverAlgorithm extends AlgorithmBase {
      * @param update
      * @return
      */
+    //调用generateTerm，获取新一轮term
+    //如果要更新，开始
     private String getNextTerm(boolean update) {
         if(!update){
             //if update is false
@@ -153,6 +157,7 @@ public abstract class SetCoverAlgorithm extends AlgorithmBase {
     /**
      * build the set covering matrix at the beginning of each turn's set covering
      */
+    //建立模型
     private void buildMatrix() {
         //start to build matrix
         logger.trace("start to build matrix");
@@ -183,10 +188,12 @@ public abstract class SetCoverAlgorithm extends AlgorithmBase {
      * 2.the current turn's set covering has decreased all the candidate terms' new to 0
      * @return
      */
+    //没太明白
     private String generateTerm() {
         //the following is set covering's main flow
 
         //set the minimal v is 1
+
         int v = (int)(threshold * snapshotSize);
         if (v <= 0) {
             v = 1;
@@ -199,6 +206,7 @@ public abstract class SetCoverAlgorithm extends AlgorithmBase {
             int maxDF = 0; //the known biggest DF value
 
             //select the term from candidates, which has the biggest new/cost value
+            //从候选词中选择最大的
             for(Map.Entry<String, Set<Integer>> entry : newMap.entrySet()) {
                 if(entry.getValue().size() != 0) { //filter out the term whose new has been decreased to 0
                     double curRate = entry.getValue().size() / (double)(df.get(entry.getKey()) + sendingCost); //new/cost=new/(df+100)
@@ -298,6 +306,7 @@ public abstract class SetCoverAlgorithm extends AlgorithmBase {
      * do some updating operations to change the underline index
      * @return
      */
+
     protected abstract void update();
 
     /**
@@ -313,7 +322,10 @@ public abstract class SetCoverAlgorithm extends AlgorithmBase {
      * get current index's document size
      * @return
      */
+
     protected abstract int getDocSize();
+
+    //继承algorithm base build,通过此build当参数实现setcoveralgorithm构造函数传参
     public static class Builder extends AlgorithmBase.Builder {
         private String mainField = Constant.FT_INDEX_FIELD;//the default lucene index's main field
         private double upBound = 0.15;//set covering algorithm's up bound
