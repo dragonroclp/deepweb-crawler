@@ -24,6 +24,8 @@ public class ApiBaseQueryLinkService extends QueryLinkService {
     private ApiBasedQuery buildQuery(String keyword) {
         return Query.asApiBased(Constant.apiBaseConf.getPrefix(), Constant.apiBaseConf.getInputXpath(), Constant.apiBaseConf.getSubmitXpath(), keyword);
     }
+
+    //获取info  链接
     public List<Info> getInfoLinks(String keyword) {
         this.totalLinkNum++;
         ApiBasedQuery query = buildQuery(keyword);
@@ -46,4 +48,5 @@ public class ApiBaseQueryLinkService extends QueryLinkService {
             return links;
         }
     }
+
 }

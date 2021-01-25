@@ -29,18 +29,24 @@ import java.util.concurrent.atomic.AtomicInteger;
  * the service used to deal with info links
  * the implementation must be thread-safe
  */
+
 public class InfoLinkService extends LinkService {
     private final static Logger logger = LoggerFactory.getLogger(InfoLinkService.class);
     private CusHttpClient httpClient;
     private IndexClient indexClient;
+
     /**
      * html tag parser, thread-safe
      */
+
     private HtmlCleaner htmlCleaner;
+
     /**
      * used to compute the downloaded document number in current round
      */
+
     private AtomicInteger count;
+
     public InfoLinkService(CusHttpClient httpClient, IndexClient indexClient) {
         this.httpClient = httpClient;
         this.indexClient = indexClient;
@@ -49,6 +55,7 @@ public class InfoLinkService extends LinkService {
         properties.setOmitComments(true);
         count = new AtomicInteger(0);
     }
+    //获取内容map
 
     private Map<String, String> getFieldContentMap(String content) {
         Map<String, String> fieldContentMap = new HashMap<>();
@@ -85,6 +92,8 @@ public class InfoLinkService extends LinkService {
         }
         return fieldContentMap;
     }
+
+//将文件变成html然后返回地址
     private String getFileAddr(String link, boolean generateFileName) {
         Path p = Paths.get(Constant.webSite.getWorkFile(),Constant.HTML_ADDR, Constant.current.getRound());
         File f = p.toFile();
@@ -115,12 +124,18 @@ public class InfoLinkService extends LinkService {
      * download the target document and build into index
      * @param info
      */
+
+    //下载目标文档并建立索引
+    //
+
     public void  downloadAndIndex(Info info) {
+
         totalLinkNum++;
         RespContent content = httpClient.getContent(info.getUrl());
         Map<String ,String> map = info.getPayload() == null ? new HashMap<>() : info.getPayload();
 
         String fileAddr = "";
+
         if (content instanceof HtmlContent) {
             //save the document into directory if the return value contains a string
             HtmlContent htmlContent = (HtmlContent) content;

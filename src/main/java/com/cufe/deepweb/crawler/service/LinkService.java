@@ -1,5 +1,7 @@
 package com.cufe.deepweb.crawler.service;
 
+//全部链接和失败链接
+
 public abstract class LinkService {
     protected int totalLinkNum;
     protected int failedLinkNum;

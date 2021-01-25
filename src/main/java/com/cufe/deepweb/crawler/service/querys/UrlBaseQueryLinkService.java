@@ -39,6 +39,7 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
      * @param pageNum note: start from 1
      * @return
      */
+
     private String buildQueryLink(String keyword, int pageNum) {
         try {
             keyword = URLEncoder.encode(keyword, Constant.extraConf.getCharset());
@@ -70,12 +71,15 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
      * @param keyword
      * @return
      */
+
+    //获取总页面数
     private int getTotalPageNum(String keyword) {
         int endNum = this.incrementNum(keyword);//incremental to get the first empty page
         if (endNum == 1) return 0;
         int startNum = endNum / 2;
         return getEndPageNum(startNum, endNum, keyword);
     }
+    //二分法获取最后页面
     private int getEndPageNum(int startNum, int endNum, String keyword) {
         String endContent = browser.getPageContent(buildQueryLink(keyword,endNum)).get();
         while (startNum < endNum) {
@@ -96,6 +100,7 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
      * @param keyword
      * @return
      */
+//2倍增加获取第一个空页面
     private int incrementNum(String keyword) {
         int cur = 1;
         String testURL = buildQueryLink(keyword, cur);
@@ -115,6 +120,7 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
         }
         return cur/2;//return this first empty page number
     }
+
     /**
      * judge that whether the two page are similar
      * this method use NLP method to judge
@@ -122,6 +128,7 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
      * @param doc2
      * @return
      */
+    //比较俩个页面
     private boolean isSimilarity(String doc1, String doc2) {
         Set<String> result = new HashSet<>();
         String[] page1 = NlpAnalysis.parse(doc1).toString().split(",");
@@ -148,6 +155,7 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
      * @param keyword
      * @return
      */
+
     public QueryLinks getQueryLinks(String keyword) {
         int num = getTotalPageNum(keyword);
         logger.info("total page num is {}", num);
@@ -160,6 +168,8 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
      * @param link
      * @return
      */
+
+    //判断链接是否为query 链接
     public boolean isQueryLink(String link) {
         if (StringUtils.isBlank(link)) {
             return false;
@@ -183,6 +193,8 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
      * @param queryLink
      * @return
      */
+
+    //获取页面所有的info link
     public List<Info> getInfoLinks(String queryLink) {
         List<Info> links = null;
         links = browser.getAllLinks(Query.asUrlBased(queryLink), collector);
@@ -194,7 +206,7 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
         return links;
     }
 
-
+//构造函数
     public class UrlBaseQueryLinks extends QueryLinks {
 
         private UrlBaseQueryLinks(int pageNum, String keyword) {
@@ -212,6 +224,9 @@ public class UrlBaseQueryLinkService extends QueryLinkService {
     /**
      * InfoLinkCollector collect the info links from query page
      */
+
+    //com.cufe.deepweb.common.http.simulate.LinkCollector
+
     class InfoLinkCollector extends LinkCollector {
 
         public InfoLinkCollector() {

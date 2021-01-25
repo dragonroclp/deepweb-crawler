@@ -10,16 +10,21 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+//对info进行简单处理
 public class Info implements Serializable {
+
     private Logger logger = LoggerFactory.getLogger(Info.class);
+
     /**
      * the url representing this info-link
      */
+
     private String url;
 
     /**
      * the additional information for the link
      */
+
     private Map<String, String> payload;
 
     private Info(String link) {
@@ -57,4 +62,6 @@ public class Info implements Serializable {
         }
         return this;
     }
+
+
 }

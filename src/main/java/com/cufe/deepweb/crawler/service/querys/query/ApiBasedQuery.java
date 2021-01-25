@@ -1,5 +1,5 @@
 package com.cufe.deepweb.crawler.service.querys.query;
-
+//  继承query  实现api的四个参数
 public class ApiBasedQuery extends Query {
     private String url;
     private String inputXpath;

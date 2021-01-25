@@ -1,6 +1,6 @@
 package com.cufe.deepweb.crawler.service.querys.query;
 
-
+//
 public class Query {
     public static UrlBasedQuery asUrlBased(String url) {
         return new UrlBasedQuery(url);

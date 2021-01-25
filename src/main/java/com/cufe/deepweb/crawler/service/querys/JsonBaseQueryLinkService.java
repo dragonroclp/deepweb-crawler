@@ -21,20 +21,26 @@ import java.util.List;
  * current implementation of JSON based queryLinkService only support using HTTP GET method to query
  * other HTTP methods is left for future implementation
  */
+
+//当前类只实现了get方法的api  其他方法由后续继承类实现
+
 public class JsonBaseQueryLinkService extends QueryLinkService {
     /**
      * the http tool for this queryLinkService to access site.
      */
+
     private CusHttpClient httpClient;
 
     /**
      * the JsonPointer of target data
      */
+
     private JsonPointer totalAddressJsonPtr;
     private JsonPointer contentJsonPtr;
 
     private String[] linkRules;
     private String[] payloadRules;
+
     public JsonBaseQueryLinkService(WebBrowser browser, Deduplicator dedu, CusHttpClient httpClient) {
         super(browser, dedu);
         this.httpClient = httpClient;
@@ -53,6 +59,8 @@ public class JsonBaseQueryLinkService extends QueryLinkService {
      * @param pageNum
      * @return
      */
+
+//获取由关键词和pagenum得到的链接
     private String buildQueryLink(String keyword, int pageNum) {
         try {
             keyword = URLEncoder.encode(keyword, Constant.extraConf.getCharset());
@@ -82,6 +90,8 @@ public class JsonBaseQueryLinkService extends QueryLinkService {
      * @param keyword
      * @return
      */
+
+//获取总页面数 由直接方法或者url中的2倍方法
     private int getTotalPageNum(String keyword) {
         //current implementation just use the first method
         JsonContent content = httpClient.getJSON(buildQueryLink(keyword, 1));
@@ -111,6 +121,7 @@ public class JsonBaseQueryLinkService extends QueryLinkService {
      * @param queryLink
      * @return
      */
+    //从目标页获取infolink
     public List<Info> getInfoLinks(String queryLink) {
         JsonContent content = httpClient.getJSON(queryLink);//directly cast to json content, maybe cause exception
         if (content == null) return Collections.emptyList();
@@ -200,7 +211,7 @@ public class JsonBaseQueryLinkService extends QueryLinkService {
     }
 
 
-
+//构造函数
     public class JsonBaseQueryLinks extends QueryLinks {
 
         JsonBaseQueryLinks(int pageNum, String keyword) {

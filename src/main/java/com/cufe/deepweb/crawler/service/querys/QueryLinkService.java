@@ -31,6 +31,7 @@ public abstract class QueryLinkService extends LinkService {
      * @param pageNum
      * @return
      */
+    //获取目标页面数
     public static int parsePageParameterAndGetTagetNum(String[] pgParams, int pageNum) {
         int startNum = Integer.parseInt(pgParams[0]);//the start number of pageNum，maybe 1 or 0
         int numInterval = Integer.parseInt(pgParams[1]);//the interval number of different pageNum corresponding to the neighbour query link
@@ -47,6 +48,7 @@ public abstract class QueryLinkService extends LinkService {
     /**
      * the generator of query link
      */
+    //query page类，调用buildQueryLink， 后续实现此方法
     public abstract class QueryLinks {
         /**
          * all the query page's page number start at 1
