@@ -4,6 +4,7 @@ package com.cufe.deepweb.common.orm.model;
  * record the current status of crawler
  * primary key is (webId, round)
  */
+//记录status
 public class Current {
     private long webId;
     /**

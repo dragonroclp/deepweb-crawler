@@ -9,6 +9,7 @@ import java.util.Optional;
 /**
  * support multi-threading
  */
+//支持多线程的登录
 public interface WebBrowser {
     /**
      * @param loginURL the login page link

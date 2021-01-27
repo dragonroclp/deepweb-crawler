@@ -1,5 +1,5 @@
 package com.cufe.deepweb.common.orm.model;
-
+//json类型的类
 public class JsonBaseConf {
     private long id;
 

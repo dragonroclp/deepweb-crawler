@@ -1,5 +1,5 @@
 package com.cufe.deepweb.common.orm.model;
-
+//website类
 public class WebSite {
     /**
      * the unique ID of website

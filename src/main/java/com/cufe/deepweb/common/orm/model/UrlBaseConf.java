@@ -1,5 +1,5 @@
 package com.cufe.deepweb.common.orm.model;
-
+//url类型的类
 public class UrlBaseConf {
     private long id;
 

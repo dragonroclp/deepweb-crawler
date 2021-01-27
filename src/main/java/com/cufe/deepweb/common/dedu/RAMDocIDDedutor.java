@@ -6,6 +6,7 @@ import java.util.Set;
 /**
  * 使用唯一的docID去重的去重器
  */
+//id去重
 public class RAMDocIDDedutor extends Deduplicator<Integer> {
     /**
      * 去重集合

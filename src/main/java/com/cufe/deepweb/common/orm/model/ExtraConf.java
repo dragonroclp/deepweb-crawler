@@ -1,5 +1,5 @@
 package com.cufe.deepweb.common.orm.model;
-
+//额外信息的类
 public class ExtraConf {
     private long id;
 

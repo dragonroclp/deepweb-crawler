@@ -34,6 +34,7 @@ import java.util.Optional;
 /**
  * the apache httpclient implementation
  */
+//apache  httpclient
 public class ApacheClient implements CusHttpClient {
     private static final Logger logger = LoggerFactory.getLogger(ApacheClient.class);
     private static List<String> userAgent = new ArrayList<String>(){
@@ -121,7 +122,7 @@ public class ApacheClient implements CusHttpClient {
         }
         return Optional.empty();
     }
-
+//http  get
     private HttpGet buildBaseHttpGet(String URL) {
         URI uri = null;
         try {
@@ -135,6 +136,7 @@ public class ApacheClient implements CusHttpClient {
         httpGet.setHeader("user-agent", getUserAgent());
         return httpGet;
     }
+    //get json
     @Override
     public JsonContent getJSON(String URL) {
         HttpGet httpGet = buildBaseHttpGet(URL);
@@ -167,6 +169,7 @@ public class ApacheClient implements CusHttpClient {
      * @param URL
      * @return
      */
+    //get content
     @Override
     public RespContent getContent(String URL) {
         HttpGet httpGet = buildBaseHttpGet(URL);

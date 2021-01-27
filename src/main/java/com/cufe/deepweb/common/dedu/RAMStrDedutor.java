@@ -8,7 +8,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
-
+//string
 public class RAMStrDedutor extends Deduplicator<String> {
     private final Logger logger = LoggerFactory.getLogger(RAMMD5Dedutor.class);
     protected Set<String> deduSet;

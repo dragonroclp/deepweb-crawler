@@ -28,6 +28,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * if this is a writable indexClient, there also has a indexWriter
  * only when the index has data, there would has a indexReader
  */
+//可写的indexclient  有indexwrite
+   // 有数据才有indexreader
 public final class IndexClient implements Closeable {
     private final Logger logger = LoggerFactory.getLogger(IndexClient.class);
     /**
@@ -88,6 +90,7 @@ public final class IndexClient implements Closeable {
     /**
      * force update index, can used to free memory out of JVM
      */
+    //强制更新index
     public synchronized void forceUpdateIndex() {
         logger.info("start to force update index");
         Utils.logMemorySize();
@@ -123,6 +126,8 @@ public final class IndexClient implements Closeable {
      * used to update indexReader
      * the update would be successfully only when there exists data in the index
      */
+    //更新indexreader
+    //
     private synchronized void updateIndexReader() {
         try {
             if (!DirectoryReader.indexExists(indexDirectory)) {
@@ -152,6 +157,7 @@ public final class IndexClient implements Closeable {
     /**
      * used to update indexSearcher
      */
+    //更新indexsearch
     private synchronized void updateIndexSearcher() {
         if (indexReader != null) {
             if (indexSearcher == null && searchThreadNum != 0) {//if have set the searchThreadNum，and have never initialized the indexSearcher
@@ -173,6 +179,7 @@ public final class IndexClient implements Closeable {
      * used to upate indexWriter
      * the update on indexWriter would cause the underline index to change
      */
+    //更新indexwriter
     private synchronized void updateIndexWriter() {
         try {
             //if index writer has existed
@@ -205,6 +212,7 @@ public final class IndexClient implements Closeable {
     /**
      * used to update index, won't free memory out of JVM
      */
+    //跟新index
     public synchronized void updateIndex() {
         logger.trace("start to update index");
         Utils.logMemorySize();
@@ -223,6 +231,7 @@ public final class IndexClient implements Closeable {
      * indexWriter is thread-safe under multi-thread environment
      * @param fieldContentPairs
      */
+    //建立键值对  indexwrite 是多线程环节下的线程安全的线程
     public void addDocument(Map<String, String> fieldContentPairs) {
         if (readOnly) {
             logger.warn("this client is readOnly, no support to write");
@@ -254,6 +263,7 @@ public final class IndexClient implements Closeable {
      * @param query
      * @return
      */
+    //通过query获取击中的doc
     public Set<Integer> search(String field, String query) {
         logger.info("start to search");
         Utils.logMemorySize();
@@ -283,6 +293,7 @@ public final class IndexClient implements Closeable {
      * @param docIDList
      * @return
      */
+    //通过docid的set加载文件返回list
     public List<Map<String, String>> loadDocuments(List<Integer> docIDList) {
         Utils.logMemorySize();
         if (indexReader == null) {
@@ -309,6 +320,7 @@ public final class IndexClient implements Closeable {
      * @param docIDList
      * @return
      */
+    //加载特定区域的doc
     public List<String> loadDocuments(String field, Set<Integer> docIDList) {
         if (indexReader == null) {
             logger.warn("this indexReader hasn't been initialized");
@@ -333,6 +345,7 @@ public final class IndexClient implements Closeable {
      * @param targetClient
      * @param docIDSet the set of docID which would be processed
      */
+    //从资源index写入目标index不改变文件
     public void write2TargetIndex(IndexClient targetClient, Set<Integer> docIDSet, int parallelNum) {
         logger.info("download num is {}", docIDSet.size());
         logger.info("start to download");
@@ -414,6 +427,7 @@ public final class IndexClient implements Closeable {
      * @param up
      * @return
      */
+    //获取当前在特定区域特定DF的index
     public Map<String, Set<Integer>> getDocSetMap2(String field,double low,double up) {
         logger.info("start to get doc set map");
         Utils.logMemorySize();
@@ -458,6 +472,7 @@ public final class IndexClient implements Closeable {
      * @param up
      * @return
      */
+    //把index看成 subindex
     public Map<String, Set<Integer>> getDocSetMap(String field,double low,double up) {
         logger.trace("start to get doc set map");
         Utils.logMemorySize();
@@ -549,6 +564,7 @@ public final class IndexClient implements Closeable {
      * get the metadata information of current index
      * @return size/fields/leaves
      */
+    //获取metadata信息
     public Map<String, Object> getIndexInfo() {
         Map<String, Object> infoMap = new HashMap<>();
         if (indexReader == null) {
@@ -578,6 +594,7 @@ public final class IndexClient implements Closeable {
      * @param extension the extension file name
      * @param charset
      */
+    //
     public void loadFieldIntoDirectory(String field, Path dir, String extension, Charset charset) {
         int num = this.getDocSize();
         if(num == 0) {

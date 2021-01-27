@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
  * this class defines the the collector's behaviour
  * the implementation of this class must be thread-safe
  */
+//link收集器抽象类
 public abstract class LinkCollector {
     private Logger logger = LoggerFactory.getLogger(LinkCollector.class);
 
@@ -43,6 +44,7 @@ public abstract class LinkCollector {
      * @param url the URL which could get this content
      * @return
      */
+    //获取满足需求的link
     public List<Info> collect(String content, URL url, String infoLinkXpath, String payloadXpath) {
         logger.trace("search result content:{} for url:{}", content, url.toString());
         List<Info> links = null;
@@ -72,7 +74,7 @@ public abstract class LinkCollector {
         links = privateOp(links);
         return links;
     }
-
+//通过xpath 收集link
     public List<Info> collectByXpath(TagNode root, String infoLinkXpath, String payloadXpath) {
         List<Info> links = new ArrayList<>();
         try {

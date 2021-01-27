@@ -3,6 +3,7 @@ package com.cufe.deepweb.common.orm.model;
 /**
  * the pattern for building index
  */
+//建立index的模式
 public class Pattern {
     private long id;
     private long webId;

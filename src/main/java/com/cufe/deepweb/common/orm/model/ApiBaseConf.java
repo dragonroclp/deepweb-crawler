@@ -1,5 +1,5 @@
 package com.cufe.deepweb.common.orm.model;
-
+//api类型的类
 public class ApiBaseConf {
 
     private long id;

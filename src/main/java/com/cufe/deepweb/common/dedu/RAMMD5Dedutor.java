@@ -17,6 +17,7 @@ import java.util.Set;
 /**
  * memory deduplicator based on MD5
  */
+//md5去重
 public class RAMMD5Dedutor extends RAMStrDedutor {
     private MessageDigest md5;
 

@@ -4,6 +4,7 @@ package com.cufe.deepweb.common.orm.model;
  * record the history round information
  * primary key is (webId, round, type)
  */
+//记录历史轮数信息
 public class Status {
     private Long webId;
     /**

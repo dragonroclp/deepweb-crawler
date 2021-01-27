@@ -24,6 +24,8 @@ import java.util.*;
 /**
  * the Browser implemented by HtmlUnit
  */
+//设置htmlunit浏览器参数  支持js  cache 1
+
 public final class HtmlUnitBrowser implements WebBrowser {
     private Logger logger = LoggerFactory.getLogger(HtmlUnitBrowser.class);
     static {
@@ -81,6 +83,7 @@ public final class HtmlUnitBrowser implements WebBrowser {
      * @param submitXpath the xpath of submit button
      * @return
      */
+    //用户登录链接 用户名 密码 submit xpath
     @Override
     public boolean login(String loginURL, String username, String password, String usernameXpath, String passwordXpath, String submitXpath) {
         WebClient client = null;
@@ -121,7 +124,7 @@ public final class HtmlUnitBrowser implements WebBrowser {
             return false;
         }
     }
-
+//获取链接内容
     @Override
     public Optional<String> getPageContent(String URL) {
         WebClient client = threadClient.get();
@@ -138,7 +141,7 @@ public final class HtmlUnitBrowser implements WebBrowser {
         return Optional.ofNullable(body.asText());
 
     }
-
+//获取所有链接
     public List<Info> getAllLinks(Query query, LinkCollector collector) {
         if (query instanceof UrlBasedQuery) {
             return getLinksFromUrlBasedQuery((UrlBasedQuery) query, collector);
@@ -184,19 +187,20 @@ public final class HtmlUnitBrowser implements WebBrowser {
         }
         return links;
     }
-
+//清除线程
     @Override
     public void clearResource() {
         threadClient.remove();
 
     }
-
+//从url query获取链接
     private List<Info> getLinksFromUrlBasedQuery(UrlBasedQuery query, LinkCollector collector) {
         String URL = query.getUrl();
         WebClient client = threadClient.get();
         HtmlPage page = retryGetPage(client, URL);
         return collector.collect(page.asXml(), page.getUrl(), Constant.urlBaseConf.getInfoLinkXpath(), null);
     }
+    //从api获取链接
     private List<Info> getLinksFromApiBasedQuery(ApiBasedQuery query, LinkCollector collector) {
         WebClient client = threadClient.get();
         HtmlPage page = retryGetPage(client, query.getUrl());
@@ -249,7 +253,7 @@ public final class HtmlUnitBrowser implements WebBrowser {
             }
         }
 
-
+//尝试三次 每次三秒
         //try 3 times to wait .3 second each for filling the page.
         List<Info> links = null;
         for (int i = 0; i < 3; i++) {
@@ -269,7 +273,7 @@ public final class HtmlUnitBrowser implements WebBrowser {
         return links;
     }
 
-
+//重新获取页面
     private HtmlPage retryGetPage(WebClient client, String url) {
         return new Try<HtmlPage>(3).run(() -> {
                 HtmlPage ans = null;
